@@ -1,3 +1,9 @@
+## Reference Information
+- Kleppmann, Martin. "Chapter 1" in _Designing Data-Intensive Applications_, O'Reilly Media, 2017.
+
+---
+# DDIA - Reliability, Scalability, Maintainability
+
 Apps created nowadays build a data system using different general purpose tools.
 
 During building apps, we go focus on three main concerns
@@ -54,19 +60,33 @@ Parameters: # of nodes in microservice 1, # of workers in microservice 1, # of i
 
 #### Describing Performance
 
-Once you describe the load on the system.
+Once you describe the load on the system, you start asking specific question depending on the operations that you need and the resources that you can change.
 
 - When you increase a load parameter and keep the system resources unchanged, how is the performance of your system affected?
 - when you increase a load parameter, how much resources do you need to increase to keep performance ?
-
-It i
 #### Latency and response time
 
 Response time: What the client sees.
 Latency: Duration that a request is waiting to be handled
 
+#### Percentiles and Describing Performance
 
+To judge the latency, it is preferred to use percentiles.
 
+![[percentiles.png]]
+
+Mean response time doesn't tell you how many users experienced that delay.
+
+High percentiles of response times aka **tail latencies** are important as people with the slowest requests might be people who use the app the most (so have more data and requests)
+
+Percentiles are often used in *service level objectives (SLOs)* and *service level agreements (SLAs)*
+
+**head of line blocking** occurs when the query that accepts requests is blocked.
+This is often a mistake in testing as tests wait for the previous request to finish before starting the next one, which overlooks any problems related to the queue,
+
+##### Tail latency amplification
+
+Occurs when small percentage of calls are slow, which block the app and causes other requests to also be slower.
 ## Maintainability 
 
 
