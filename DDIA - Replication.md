@@ -106,3 +106,18 @@ It's possible to work around these, but because there are so many edge cases, ot
 #### Write-ahead log (WAL) shipping
 
 The log is an append only sequence of bytes that can be used to create a replica on another node.
+
+Disadvantage of WAL is that it includes very low level details that it is often coupled to a storage engine.
+
+If a db changes storage format, it might not even work with the same database
+
+This might cause a problem.
+
+If we want to update a single leader multiple follower system
+
+We could update followers and use WAL to restore the data.
+
+But if the follower changes db version or the db, WAL could be invalid.
+
+So there would have to be some downtime during update.
+
